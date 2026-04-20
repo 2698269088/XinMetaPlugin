@@ -21,7 +21,7 @@ import xin.bbtt.mcbot.Bot;
 import xin.bbtt.mcbot.event.EventHandler;
 import xin.bbtt.mcbot.event.Listener;
 import xin.bbtt.mcbot.events.OverlayUpdateEvent;
-import xin.bbtt.mcbot.events.PositionInQueueUpdateEvent;
+import xin.bbtt.meta.events.PositionInQueueUpdateEvent;
 
 public class PositonInQueueOverlayListener implements Listener {
     @EventHandler

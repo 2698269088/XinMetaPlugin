@@ -25,7 +25,7 @@ import org.geysermc.mcprotocollib.network.packet.Packet;
 import org.geysermc.mcprotocollib.protocol.packet.ingame.clientbound.ClientboundSystemChatPacket;
 import xin.bbtt.mcbot.Bot;
 import xin.bbtt.mcbot.Utils;
-import xin.bbtt.mcbot.events.AnswerQuestionEvent;
+import xin.bbtt.meta.events.AnswerQuestionEvent;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

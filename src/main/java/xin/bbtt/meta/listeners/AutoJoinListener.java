@@ -38,7 +38,7 @@ import xin.bbtt.mcbot.Bot;
 import xin.bbtt.mcbot.LangManager;
 import xin.bbtt.mcbot.Server;
 import xin.bbtt.mcbot.Utils;
-import xin.bbtt.mcbot.events.ClickJoinItemEvent;
+import xin.bbtt.meta.events.ClickJoinItemEvent;
 
 public class AutoJoinListener extends SessionAdapter {
     private static final Logger log = LoggerFactory.getLogger(AutoJoinListener.class.getSimpleName());
