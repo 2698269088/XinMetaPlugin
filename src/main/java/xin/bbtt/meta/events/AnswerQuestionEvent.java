@@ -17,25 +17,32 @@
 
 package xin.bbtt.meta.events;
 
-import lombok.Getter;
-import lombok.Setter;
 import xin.bbtt.mcbot.event.Event;
 import xin.bbtt.mcbot.event.HandlerList;
 import xin.bbtt.mcbot.event.HasDefaultAction;
 
 public class AnswerQuestionEvent extends Event implements HasDefaultAction {
     private static final HandlerList HANDLERS = new HandlerList();
-    @Getter
-    private final String question;
-    @Getter
-    @Setter
-    private String answer;
 
+    private final String question;
+    private String answer;
 
     private boolean cancelDefault;
 
     public AnswerQuestionEvent(String question, String answer) {
         this.question = question;
+        this.answer = answer;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
         this.answer = answer;
     }
 
