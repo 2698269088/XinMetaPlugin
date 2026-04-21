@@ -47,18 +47,18 @@ public class XinMetaPlugin implements MetaPlugin {
     @Override
     public void onEnable() {
         // Packet listeners
-        Bot.Instance.addPacketListener(new AutoLoginListener(), this);
-        Bot.Instance.addPacketListener(new AutoJoinListener(), this);
-        Bot.Instance.addPacketListener(new CaptchaListener(), this);
-        Bot.Instance.addPacketListener(new AnswerQuestionListener(), this);
-        Bot.Instance.addPacketListener(new PositionInQueueListener(), this);
-        Bot.Instance.addPacketListener(new JoinButtonRecorder(), this);
+        Bot.INSTANCE.addPacketListener(new AutoLoginListener(), this);
+        Bot.INSTANCE.addPacketListener(new AutoJoinListener(), this);
+        Bot.INSTANCE.addPacketListener(new CaptchaListener(), this);
+        Bot.INSTANCE.addPacketListener(new AnswerQuestionListener(), this);
+        Bot.INSTANCE.addPacketListener(new PositionInQueueListener(), this);
+        Bot.INSTANCE.addPacketListener(new JoinButtonRecorder(), this);
 
         // Event listeners
-        Bot.Instance.getPluginManager().registerEvents(new PositonInQueueOverlayListener(), this);
-        Bot.Instance.getPluginManager().registerEvents(new PrivateChatMessageListener(), this);
-        Bot.Instance.getPluginManager().registerEvents(new PublicChatMessageListener(), this);
-        Bot.Instance.getPluginManager().registerEvents(new DisconnectListener(), this);
+        Bot.INSTANCE.getPluginManager().registerEvents(new PositonInQueueOverlayListener(), this);
+        Bot.INSTANCE.getPluginManager().registerEvents(new PrivateChatMessageListener(), this);
+        Bot.INSTANCE.getPluginManager().registerEvents(new PublicChatMessageListener(), this);
+        Bot.INSTANCE.getPluginManager().registerEvents(new DisconnectListener(), this);
     }
 
     @Override

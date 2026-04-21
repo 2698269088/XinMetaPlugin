@@ -51,34 +51,34 @@ public class AutoLoginListener extends SessionAdapter {
     private void login(ClientboundSetTitleTextPacket titlePacket) {
         if (titlePacket.toString().contains("登陆成功")) {
             LoginSuccessEvent loginSuccessEvent = new LoginSuccessEvent();
-            Bot.Instance.getPluginManager().events().callEvent(loginSuccessEvent);
+            Bot.INSTANCE.getPluginManager().events().callEvent(loginSuccessEvent);
             log.info(LangManager.get("xinmeta.login.successful"));
             this.login = true;
         }
         else if (titlePacket.toString().contains("注册")) {
-            String registerCommand = "reg " + Bot.Instance.getConfig().getConfigData().getAccount().getPassword() + " " + Bot.Instance.getConfig().getConfigData().getAccount().getPassword();
+            String registerCommand = "reg " + Bot.INSTANCE.getConfig().getConfigData().getAccount().getPassword() + " " + Bot.INSTANCE.getConfig().getConfigData().getAccount().getPassword();
             SendRegisterCommandEvent registerCommandEvent = new SendRegisterCommandEvent(registerCommand);
-            Bot.Instance.getPluginManager().events().callEvent(registerCommandEvent);
+            Bot.INSTANCE.getPluginManager().events().callEvent(registerCommandEvent);
             if (!registerCommandEvent.isDefaultActionCancelled())
-                Bot.Instance.sendCommand(registerCommandEvent.getCommand());
+                Bot.INSTANCE.sendCommand(registerCommandEvent.getCommand());
         }
         else {
-            String loginCommand = "l " + Bot.Instance.getConfig().getConfigData().getAccount().getPassword();
+            String loginCommand = "l " + Bot.INSTANCE.getConfig().getConfigData().getAccount().getPassword();
             SendLoginCommandEvent loginCommandEvent = new SendLoginCommandEvent(loginCommand);
             if (!loginCommandEvent.isDefaultActionCancelled())
-                Bot.Instance.sendCommand(loginCommandEvent.getCommand());
+                Bot.INSTANCE.sendCommand(loginCommandEvent.getCommand());
         }
     }
 
     private void join() {
         if (last_action_time > System.currentTimeMillis() - 2000) return;
-        if (Bot.Instance.getServer() != Server.Login) return;
+        if (Bot.INSTANCE.getServer() != Server.Login) return;
         UseJoinItemEvent useJoinItemEvent = new UseJoinItemEvent();
-        Bot.Instance.getPluginManager().events().callEvent(useJoinItemEvent);
+        Bot.INSTANCE.getPluginManager().events().callEvent(useJoinItemEvent);
         last_action_time = System.currentTimeMillis();
         if (useJoinItemEvent.isDefaultActionCancelled()) return;
-        Bot.Instance.getSession().send(new ServerboundSetCarriedItemPacket(join_button_slot));
-        Bot.Instance.getSession().send(
+        Bot.INSTANCE.getSession().send(new ServerboundSetCarriedItemPacket(join_button_slot));
+        Bot.INSTANCE.getSession().send(
                 new ServerboundUseItemPacket(
                         Hand.MAIN_HAND,
                         (int) Instant.now().toEpochMilli(),

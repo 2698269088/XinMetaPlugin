@@ -67,6 +67,6 @@ static {
         AnswerQuestionEvent answerQuestionEvent = new AnswerQuestionEvent(question, answer);
 
         if (!answerQuestionEvent.isDefaultActionCancelled())
-            Bot.Instance.sendChatMessage(answerQuestionEvent.getAnswer());
+            Bot.INSTANCE.sendChatMessage(answerQuestionEvent.getAnswer());
     }
 }

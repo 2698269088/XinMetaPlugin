@@ -34,7 +34,7 @@ public class DisconnectListener implements Listener {
     @EventHandler
     public void onDisconnect(DisconnectEvent event) {
         if ("§c微软认证失败".equals(Utils.toString(event.getReason()))) {
-            BotConfig config = Bot.Instance.getConfig();
+            BotConfig config = Bot.INSTANCE.getConfig();
             BotConfigData configData = config.getConfigData();
 
             boolean shouldStopBot = false;
@@ -54,7 +54,7 @@ public class DisconnectListener implements Listener {
             }
 
             if (shouldStopBot) {
-                Bot.Instance.stop();
+                Bot.INSTANCE.stop();
             }
         }
     }

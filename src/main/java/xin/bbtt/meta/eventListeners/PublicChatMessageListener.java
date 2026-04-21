@@ -42,10 +42,10 @@ public class PublicChatMessageListener implements Listener {
         if (message.startsWith("§a")) {
             message = message.substring(2);
         }
-        for (GameProfile profile : Bot.Instance.players.values()) {
+        for (GameProfile profile : Bot.INSTANCE.players.values()) {
             if (profile.getName().equals(playerName)) {
                 PublicChatEvent publicChatEvent = new PublicChatEvent(profile, message);
-                Bot.Instance.getPluginManager().events().callEvent(publicChatEvent);
+                Bot.INSTANCE.getPluginManager().events().callEvent(publicChatEvent);
                 break;
             }
         }

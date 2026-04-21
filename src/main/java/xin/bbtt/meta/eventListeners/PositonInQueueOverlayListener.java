@@ -30,6 +30,6 @@ public class PositonInQueueOverlayListener implements Listener {
         if(!text.startsWith("§0§lPosition in queue: §6§l")) return;
         String positionInQueue = text.replace("§0§lPosition in queue: §6§l", "");
         PositionInQueueUpdateEvent positionInQueueUpdateEvent = new PositionInQueueUpdateEvent(Integer.parseInt(positionInQueue));
-        Bot.Instance.getPluginManager().events().callEvent(positionInQueueUpdateEvent);
+        Bot.INSTANCE.getPluginManager().events().callEvent(positionInQueueUpdateEvent);
     }
 }

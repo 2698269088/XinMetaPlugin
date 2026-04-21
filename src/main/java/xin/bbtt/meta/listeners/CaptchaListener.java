@@ -43,7 +43,7 @@ public class CaptchaListener extends SessionAdapter {
 
         String captchaMessage = matcher.group(1);
 
-        Bot.Instance.sendChatMessage(captchaMessage);
+        Bot.INSTANCE.sendChatMessage(captchaMessage);
 
         log.debug(captchaMessage);
     }

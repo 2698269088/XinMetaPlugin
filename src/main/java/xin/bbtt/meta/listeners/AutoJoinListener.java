@@ -50,7 +50,7 @@ public class AutoJoinListener extends SessionAdapter {
         Int2ObjectMap<HashedStack> changedSlots = new Int2ObjectOpenHashMap<>();
         changedSlots.put(slot, null);
         ClickJoinItemEvent clickJoinItemEvent = new ClickJoinItemEvent();
-        Bot.Instance.getPluginManager().events().callEvent(clickJoinItemEvent);
+        Bot.INSTANCE.getPluginManager().events().callEvent(clickJoinItemEvent);
         if (clickJoinItemEvent.isDefaultActionCancelled()) return;
         session.send(new ServerboundContainerClickPacket(
             containerId,
@@ -65,7 +65,7 @@ public class AutoJoinListener extends SessionAdapter {
     @Override
     public void packetReceived(Session session, Packet packet) {
         if (packet instanceof ClientboundContainerClosePacket containerClosePacket) onCloseContainer(containerClosePacket);
-        if (Bot.Instance.getServer() != Server.Login) return;
+        if (Bot.INSTANCE.getServer() != Server.Login) return;
         if (packet instanceof ClientboundOpenScreenPacket openScreenPacket) recordContainer(openScreenPacket);
         if (packet instanceof ClientboundContainerSetContentPacket containerSetContentPacket) onSetContent(containerSetContentPacket, session);
         if (packet instanceof ClientboundContainerSetSlotPacket containerSetSlotPacket) onSetSlot(containerSetSlotPacket, session);
@@ -77,7 +77,7 @@ public class AutoJoinListener extends SessionAdapter {
     }
 
     private void recordContainer(ClientboundOpenScreenPacket openScreenPacket) {
-        if (Bot.Instance.getServer() != Server.Login) return;
+        if (Bot.INSTANCE.getServer() != Server.Login) return;
         if (!(openScreenPacket.getTitle() instanceof TextComponent title)) return;
         if (!title.content().contains("Game") && !title.content().contains("戏") && !title.content().contains("队") && !title.content().contains("入")) return;
         containerId = openScreenPacket.getContainerId();
