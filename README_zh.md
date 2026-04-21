@@ -1,6 +1,22 @@
-# METAPLUGIN
+# xinMetaPlugin
 
-📖 **官方文档:** [XINBOT.SHOULDBE.TOP](https://xinbot.shouldbe.top/)
+## 📖 官方文档: [xinbot.shouldbe.top](https://xinbot.shouldbe.top/)
+
+<!-- Badges -->
+<p>
+  <a href="https://github.com/huangdihd/XinMetaPlugin/releases" target="_blank">
+    <img src="https://img.shields.io/github/v/release/huangdihd/XinMetaPlugin?style=for-the-badge&label=Release&color=brightgreen" alt="Latest Release">
+  </a>
+  <a href="https://github.com/huangdihd/XinMetaPlugin/issues" target="_blank">
+    <img src="https://img.shields.io/github/issues/huangdihd/XinMetaPlugin?style=for-the-badge&label=Issues&color=yellow" alt="Issues">
+  </a>
+  <a href="https://github.com/huangdihd/XinMetaPlugin/blob/main/LICENSE" target="_blank">
+    <img src="https://img.shields.io/github/license/huangdihd/XinMetaPlugin?style=for-the-badge&label=License&color=blue" alt="License">
+  </a>
+  <a href="https://github.com/huangdihd/XinMetaPlugin/stargazers" target="_blank">
+    <img src="https://img.shields.io/github/stars/huangdihd/XinMetaPlugin?style=for-the-badge&label=Stars&color=ff69b4" alt="Stars">
+  </a>
+</p>
 
 ---
 
@@ -8,8 +24,9 @@
 
 [English](README.md) / 简体中文
 
-#### ✨ 特性
+---
 
+## 特性
 - **自动化认证**: 无缝处理 2b2t.xin 的登录和验证流程。
 - **排队智能**: 
     - 实时排队位置追踪。
@@ -22,24 +39,22 @@
 
 ---
 
-#### 🚀 快速开始
+## 快速开始
 
-1. **下载**: 从 [Releases](https://github.com/huangdihd/XinMetaPlugin/releases) 页面获取最新的 `xinMetaPlugin.jar`。
-2. **安装**: 将 JAR 文件放入 xinbot 安装目录下的 `plugins` 文件夹中。
-3. **运行**: 启动 xinbot，插件将自动加载并处理 2b2t.xin 的特定协议逻辑。
+1) 下载
+   从 [Releases](https://github.com/huangdihd/XinMetaPlugin/releases) 页面获取最新的 `xinMetaPlugin.jar`。
+
+2) 安装
+   将 JAR 文件放入 xinbot 安装目录下的 `plugins` 文件夹中。需要 Java 17 或更高版本。
+
+3) 运行
+   启动 xinbot，插件将自动加载并处理 2b2t.xin 的特定协议逻辑。
 
 ---
 
-#### 📦 版本发布
-
-您可以在 [GitHub Releases](https://github.com/huangdihd/XinMetaPlugin/releases) 栏目下载 JAR 文件。
-
----
-
-#### 📄 开源协议
-
+## 开源协议
 GPL-3.0-or-later，完整文本请参阅 LICENSE。
 
 如果你喜欢 Xinbot，欢迎点个 Star！
 
-Made with ❤️ by [huangdihd](https://github.com/huangdihd)
+Made with ❤️ by huangdihd

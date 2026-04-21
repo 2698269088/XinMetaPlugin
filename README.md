@@ -1,6 +1,22 @@
-# METAPLUGIN
+# xinMetaPlugin
 
-📖 **OFFICIAL DOCUMENTATION:** [XINBOT.SHOULDBE.TOP](https://xinbot.shouldbe.top/)
+## 📖 Official Documentation: [xinbot.shouldbe.top](https://xinbot.shouldbe.top/)
+
+<!-- Badges -->
+<p>
+  <a href="https://github.com/huangdihd/XinMetaPlugin/releases" target="_blank">
+    <img src="https://img.shields.io/github/v/release/huangdihd/XinMetaPlugin?style=for-the-badge&label=Release&color=brightgreen" alt="Latest Release">
+  </a>
+  <a href="https://github.com/huangdihd/XinMetaPlugin/issues" target="_blank">
+    <img src="https://img.shields.io/github/issues/huangdihd/XinMetaPlugin?style=for-the-badge&label=Issues&color=yellow" alt="Issues">
+  </a>
+  <a href="https://github.com/huangdihd/XinMetaPlugin/blob/main/LICENSE" target="_blank">
+    <img src="https://img.shields.io/github/license/huangdihd/XinMetaPlugin?style=for-the-badge&label=License&color=blue" alt="License">
+  </a>
+  <a href="https://github.com/huangdihd/XinMetaPlugin/stargazers" target="_blank">
+    <img src="https://img.shields.io/github/stars/huangdihd/XinMetaPlugin?style=for-the-badge&label=Stars&color=ff69b4" alt="Stars">
+  </a>
+</p>
 
 ---
 
@@ -8,8 +24,9 @@
 
 English / [简体中文](README_zh.md)
 
-#### ✨ FEATURES
+---
 
+## Features
 - **Automated Authentication**: Seamlessly handles the login and verification flow for 2b2t.xin.
 - **Queue Intelligence**: 
     - Real-time queue position tracking.
@@ -22,24 +39,22 @@ English / [简体中文](README_zh.md)
 
 ---
 
-#### 🚀 QUICK START
+## Quick Start
 
-1. **Download**: Obtain the latest `xinMetaPlugin.jar` from the [Releases](https://github.com/huangdihd/XinMetaPlugin/releases) page.
-2. **Install**: Place the JAR file into the `plugins` directory of your xinbot installation.
-3. **Run**: Start xinbot. The plugin will be loaded automatically to handle the 2b2t.xin protocol specifics.
+1) Download
+   Obtain the latest `xinMetaPlugin.jar` from the [Releases](https://github.com/huangdihd/XinMetaPlugin/releases) page.
+
+2) Install
+   Place the JAR file into the `plugins` directory of your xinbot installation. Java 17 or newer is required.
+
+3) Run
+   Start xinbot. The plugin will be loaded automatically to handle the 2b2t.xin protocol specifics.
 
 ---
 
-#### 📦 RELEASES
-
-You can find the JAR file in the [GitHub Releases](https://github.com/huangdihd/XinMetaPlugin/releases) section.
-
----
-
-#### 📄 LICENSE
-
+## License
 GPL-3.0-or-later, see LICENSE for the full text.
 
 If you like Xinbot, a star goes a long way!
 
-Made with ❤️ by [huangdihd](https://github.com/huangdihd)
+Made with ❤️ by huangdihd
