@@ -1,16 +1,14 @@
-# MetaPlugin for xinbot
+# METAPLUGIN
 
-[![License](https://img.shields.io/github/license/huangdihd/XinMetaPlugin)](LICENSE)
-[![Release](https://img.shields.io/github/v/release/huangdihd/XinMetaPlugin)](https://github.com/huangdihd/XinMetaPlugin/releases)
-[![Java Version](https://img.shields.io/badge/Java-17+-orange.svg)](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html)
-
-A specialized MetaPlugin for **2b2t.xin**, built on the [xinbot](https://github.com/huangdihd/xinbot) framework.
-
-[English](README.md) / [简体中文](README_zh.md)
+📖 **OFFICIAL DOCUMENTATION:** [XINBOT.SHOULDBE.TOP](https://xinbot.shouldbe.top/)
 
 ---
 
-### ✨ Features
+> A specialized MetaPlugin for **2b2t.xin**, built on the [xinbot](https://github.com/huangdihd/xinbot) framework.
+
+English / [简体中文](README_zh.md)
+
+#### ✨ FEATURES
 
 - **Automated Authentication**: Seamlessly handles the login and verification flow for 2b2t.xin.
 - **Queue Intelligence**: 
@@ -22,19 +20,26 @@ A specialized MetaPlugin for **2b2t.xin**, built on the [xinbot](https://github.
 - **Environment Adaptation**: Specifically tuned for 2b2t.xin's container-based lobby system.
 - **Multi-language Support**: Built-in support for EN, DE, FR, JP, RU, and ZH.
 
-### 🚀 Quick Start
+---
+
+#### 🚀 QUICK START
 
 1. **Download**: Obtain the latest `xinMetaPlugin.jar` from the [Releases](https://github.com/huangdihd/XinMetaPlugin/releases) page.
 2. **Install**: Place the JAR file into the `plugins` directory of your xinbot installation.
 3. **Run**: Start xinbot. The plugin will be loaded automatically to handle the 2b2t.xin protocol specifics.
 
-### 📦 Releases
+---
+
+#### 📦 RELEASES
 
 You can find the JAR file in the [GitHub Releases](https://github.com/huangdihd/XinMetaPlugin/releases) section.
 
-### 📄 License
-
-Distributed under the GPL-3.0 License.
-
 ---
+
+#### 📄 LICENSE
+
+GPL-3.0-or-later, see LICENSE for the full text.
+
+If you like Xinbot, a star goes a long way!
+
 Made with ❤️ by [huangdihd](https://github.com/huangdihd)
