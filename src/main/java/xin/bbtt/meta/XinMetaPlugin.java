@@ -20,6 +20,7 @@ package xin.bbtt.meta;
 import org.geysermc.mcprotocollib.protocol.data.game.entity.player.GameMode;
 import org.geysermc.mcprotocollib.protocol.packet.ingame.clientbound.ClientboundLoginPacket;
 import xin.bbtt.mcbot.Bot;
+import xin.bbtt.mcbot.LangManager;
 import xin.bbtt.mcbot.Server;
 import xin.bbtt.mcbot.plugin.MetaPlugin;
 import xin.bbtt.meta.eventListeners.DisconnectListener;
@@ -36,6 +37,7 @@ public class XinMetaPlugin implements MetaPlugin {
 
     @Override
     public void onLoad() {
+        LangManager.initLang(XinMetaPlugin.class.getClassLoader());
     }
 
     @Override
