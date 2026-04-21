@@ -1,5 +1,9 @@
 # MetaPlugin for xinbot
 
+[![License](https://img.shields.io/github/license/huangdihd/XinMetaPlugin)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/huangdihd/XinMetaPlugin)](https://github.com/huangdihd/XinMetaPlugin/releases)
+[![Java Version](https://img.shields.io/badge/Java-17+-orange.svg)](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html)
+
 A specialized MetaPlugin for **2b2t.xin**, built on the [xinbot](https://github.com/huangdihd/xinbot) framework.
 
 [English](README.md) / [简体中文](README_zh.md)
