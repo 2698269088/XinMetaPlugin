@@ -6,8 +6,6 @@ A specialized MetaPlugin for **2b2t.xin**, built on the [xinbot](https://github.
 
 ---
 
-⚠️ **Note**: This is a mandatory component for connecting to 2b2t.xin using xinbot v2.x.
-
 ### ✨ Features
 
 - **Automated Authentication**: Seamlessly handles the login and verification flow for 2b2t.xin.
@@ -28,7 +26,7 @@ A specialized MetaPlugin for **2b2t.xin**, built on the [xinbot](https://github.
 
 ### 📦 Releases
 
-You can find the pre-compiled binaries in the [GitHub Releases](https://github.com/huangdihd/XinMetaPlugin/releases) section.
+You can find the JAR file in the [GitHub Releases](https://github.com/huangdihd/XinMetaPlugin/releases) section.
 
 ### 📄 License
 

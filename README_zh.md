@@ -6,8 +6,6 @@
 
 ---
 
-⚠️ **注意**: 这是 xinbot v2.x 连接到 2b2t.xin 的必需组件。
-
 ### ✨ 特性
 
 - **自动化认证**: 无缝处理 2b2t.xin 的登录和验证流程。
@@ -28,7 +26,7 @@
 
 ### 📦 版本发布
 
-您可以在 [GitHub Releases](https://github.com/huangdihd/XinMetaPlugin/releases) 栏目找到预编译的二进制文件。
+您可以在 [GitHub Releases](https://github.com/huangdihd/XinMetaPlugin/releases) 栏目下载 JAR 文件。
 
 ### 📄 开源协议
 
