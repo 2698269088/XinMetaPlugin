@@ -1,0 +1,5 @@
+xinmeta.disconnect.genericReason=Отключено
+xinmeta.disconnect.loginFailed=Ошибка входа
+xinmeta.login.successful=Вход выполнен успешно
+xinmeta.auth.ms.failed=Microsoft authentication failed.
+xinmeta.autojoin.container.recorded=Записан идентификатор контейнера %s

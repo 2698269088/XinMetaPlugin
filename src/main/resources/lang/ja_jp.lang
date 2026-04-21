@@ -1,0 +1,5 @@
+xinmeta.disconnect.genericReason=切断されました
+xinmeta.disconnect.loginFailed=ログインに失敗しました
+xinmeta.login.successful=ログインに成功しました
+xinmeta.auth.ms.failed=Microsoft authentication failed.
+xinmeta.autojoin.container.recorded=コンテナ ID %s を記録しました

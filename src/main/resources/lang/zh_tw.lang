@@ -1,0 +1,5 @@
+xinmeta.disconnect.genericReason=已斷開連接
+xinmeta.disconnect.loginFailed=登入失敗
+xinmeta.login.successful=登入成功
+xinmeta.auth.ms.failed=Microsoft authentication failed.
+xinmeta.autojoin.container.recorded=已記錄容器 ID %s
