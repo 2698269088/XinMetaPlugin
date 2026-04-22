@@ -40,12 +40,22 @@ import xin.bbtt.mcbot.Server;
 import xin.bbtt.mcbot.Utils;
 import xin.bbtt.meta.events.ClickJoinItemEvent;
 
+import java.util.List;
+
 public class AutoJoinListener extends SessionAdapter {
     private static final Logger log = LoggerFactory.getLogger(AutoJoinListener.class.getSimpleName());
     private int containerId = -1;
 
-    private void checkItemStack(ItemStack itemStack, Session session, int slot, int stateId) {
-        if (!itemStack.toString().contains("Game") && !itemStack.toString().contains("戏") && !itemStack.toString().contains("队") && !itemStack.toString().contains("入")) return;
+    private boolean isKeywordMatch(ItemStack itemStack) {
+        String str = itemStack.toString();
+        return isKeywordMatch(str);
+    }
+
+    private boolean isKeywordMatch(String str) {
+        return str.contains("Game") || str.contains("戏") || str.contains("队") || str.contains("入");
+    }
+
+    private void clickSlot(ItemStack itemStack, Session session, int slot, int stateId) {
         HashedStack hashedStack = Utils.itemStackToHashedStack(itemStack);
         Int2ObjectMap<HashedStack> changedSlots = new Int2ObjectOpenHashMap<>();
         changedSlots.put(slot, null);
@@ -62,6 +72,7 @@ public class AutoJoinListener extends SessionAdapter {
             changedSlots
         ));
     }
+
     @Override
     public void packetReceived(Session session, Packet packet) {
         if (packet instanceof ClientboundContainerClosePacket containerClosePacket) onCloseContainer(containerClosePacket);
@@ -79,7 +90,7 @@ public class AutoJoinListener extends SessionAdapter {
     private void recordContainer(ClientboundOpenScreenPacket openScreenPacket) {
         if (Bot.INSTANCE.getServer() != Server.Login) return;
         if (!(openScreenPacket.getTitle() instanceof TextComponent title)) return;
-        if (!title.content().contains("Game") && !title.content().contains("戏") && !title.content().contains("队") && !title.content().contains("入")) return;
+        if (!isKeywordMatch(title.content())) return;
         containerId = openScreenPacket.getContainerId();
         log.debug(LangManager.get("xinmeta.autojoin.container.recorded", containerId));
     }
@@ -87,17 +98,83 @@ public class AutoJoinListener extends SessionAdapter {
     private void onSetContent(ClientboundContainerSetContentPacket containerSetContentPacket, Session session) {
         if (!(containerSetContentPacket.getContainerId() == containerId)) return;
         ItemStack[] items = containerSetContentPacket.getItems();
-        for (int slot = 0; slot < items.length; slot++) {
+        
+        java.util.List<Integer> keywordMatches = new java.util.ArrayList<>();
+        for (int slot = 0; slot < items.length - 27; slot++) {
             ItemStack itemStack = items[slot];
             if (itemStack == null) continue;
-            checkItemStack(itemStack, session, slot, containerSetContentPacket.getStateId());
+            if (isKeywordMatch(itemStack)) {
+                keywordMatches.add(slot);
+            }
         }
+
+        int targetSlot = getTargetSlot(keywordMatches, items);
+
+        if (targetSlot != -1) {
+            clickSlot(items[targetSlot], session, targetSlot, containerSetContentPacket.getStateId());
+        }
+    }
+
+    private static int countItemOccurrences(ItemStack[] items, ItemStack target) {
+        int count = 0;
+        for (int i = 0; i < items.length - 27; i++) {
+            if (items[i] != null && items[i].equals(target)) count++;
+        }
+        return count;
+    }
+
+    private static int getTargetSlot(List<Integer> keywordMatches, ItemStack[] items) {
+        int targetSlot = -1;
+
+        if (keywordMatches.size() == 1) {
+            targetSlot = keywordMatches.get(0);
+        } else if (keywordMatches.size() > 1) {
+            for (int slot : keywordMatches) {
+                if (countItemOccurrences(items, items[slot]) == 1) {
+                    targetSlot = slot;
+                    break;
+                }
+            }
+            if (targetSlot == -1) {
+                targetSlot = keywordMatches.get(0);
+            }
+        }
+
+        if (targetSlot == -1) {
+            for (int slot = 0; slot < items.length - 27; slot++) {
+                ItemStack itemStack = items[slot];
+                if (itemStack == null) continue;
+                if (itemStack.getId() == 1034) {
+                    targetSlot = slot;
+                    break;
+                }
+            }
+        }
+
+        if (targetSlot == -1 && items.length > 4 && items[4] != null) {
+            targetSlot = 4;
+        }
+        return targetSlot;
     }
 
     private void onSetSlot(ClientboundContainerSetSlotPacket containerSetSlotPacket, Session session) {
         if (!(containerSetSlotPacket.getContainerId() == containerId)) return;
         ItemStack itemStack = containerSetSlotPacket.getItem();
         if (itemStack == null) return;
-        checkItemStack(itemStack, session, containerSetSlotPacket.getSlot(), containerSetSlotPacket.getStateId());
+        
+        boolean click = false;
+        if (isKeywordMatch(itemStack)) {
+            click = true;
+        } else {
+            if (itemStack.getId() == 1034) {
+                click = true;
+            } else if (containerSetSlotPacket.getSlot() == 4) {
+                click = true;
+            }
+        }
+
+        if (click) {
+            clickSlot(itemStack, session, containerSetSlotPacket.getSlot(), containerSetSlotPacket.getStateId());
+        }
     }
 }
