@@ -33,6 +33,7 @@ public class DisconnectListener implements Listener {
     private static final Logger log = LoggerFactory.getLogger(DisconnectListener.class.getSimpleName());
     @EventHandler
     public void onDisconnect(DisconnectEvent event) {
+
         if ("§c微软认证失败".equals(Utils.toString(event.getReason()))) {
             BotConfig config = Bot.INSTANCE.getConfig();
             BotConfigData configData = config.getConfigData();

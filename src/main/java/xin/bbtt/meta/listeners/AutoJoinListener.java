@@ -23,6 +23,7 @@ import net.kyori.adventure.text.TextComponent;
 import org.geysermc.mcprotocollib.network.Session;
 import org.geysermc.mcprotocollib.network.event.session.SessionAdapter;
 import org.geysermc.mcprotocollib.network.packet.Packet;
+import org.geysermc.mcprotocollib.protocol.data.game.entity.player.Hand;
 import org.geysermc.mcprotocollib.protocol.data.game.inventory.ClickItemAction;
 import org.geysermc.mcprotocollib.protocol.data.game.inventory.ContainerActionType;
 import org.geysermc.mcprotocollib.protocol.data.game.item.HashedStack;
@@ -32,19 +33,44 @@ import org.geysermc.mcprotocollib.protocol.packet.ingame.clientbound.inventory.C
 import org.geysermc.mcprotocollib.protocol.packet.ingame.clientbound.inventory.ClientboundContainerSetSlotPacket;
 import org.geysermc.mcprotocollib.protocol.packet.ingame.clientbound.inventory.ClientboundOpenScreenPacket;
 import org.geysermc.mcprotocollib.protocol.packet.ingame.serverbound.inventory.ServerboundContainerClickPacket;
+import org.geysermc.mcprotocollib.protocol.packet.ingame.serverbound.player.ServerboundSetCarriedItemPacket;
+import org.geysermc.mcprotocollib.protocol.packet.ingame.serverbound.player.ServerboundUseItemPacket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import xin.bbtt.mcbot.Bot;
 import xin.bbtt.mcbot.LangManager;
 import xin.bbtt.mcbot.Server;
 import xin.bbtt.mcbot.Utils;
+import xin.bbtt.mcbot.events.UseJoinItemEvent;
 import xin.bbtt.meta.events.ClickJoinItemEvent;
 
+import java.time.Instant;
 import java.util.List;
+
+import static xin.bbtt.meta.listeners.AutoLoginListener.join_button_slot;
 
 public class AutoJoinListener extends SessionAdapter {
     private static final Logger log = LoggerFactory.getLogger(AutoJoinListener.class.getSimpleName());
     private int containerId = -1;
+    public static Long last_action_time = System.currentTimeMillis();
+
+    private void join() {
+        if (last_action_time > System.currentTimeMillis() - 2000) return;
+        if (Bot.INSTANCE.getServer() != Server.Login) return;
+        UseJoinItemEvent useJoinItemEvent = new UseJoinItemEvent();
+        Bot.INSTANCE.getPluginManager().events().callEvent(useJoinItemEvent);
+        last_action_time = System.currentTimeMillis();
+        if (useJoinItemEvent.isDefaultActionCancelled()) return;
+        Bot.INSTANCE.getSession().send(new ServerboundSetCarriedItemPacket(join_button_slot));
+        Bot.INSTANCE.getSession().send(
+                new ServerboundUseItemPacket(
+                        Hand.MAIN_HAND,
+                        (int) Instant.now().toEpochMilli(),
+                        0,
+                        0
+                )
+        );
+    }
 
     private boolean isKeywordMatch(ItemStack itemStack) {
         String str = itemStack.toString();
@@ -80,6 +106,7 @@ public class AutoJoinListener extends SessionAdapter {
         if (packet instanceof ClientboundOpenScreenPacket openScreenPacket) recordContainer(openScreenPacket);
         if (packet instanceof ClientboundContainerSetContentPacket containerSetContentPacket) onSetContent(containerSetContentPacket, session);
         if (packet instanceof ClientboundContainerSetSlotPacket containerSetSlotPacket) onSetSlot(containerSetSlotPacket, session);
+        if (AutoLoginListener.login) join();
     }
 
     private void onCloseContainer(ClientboundContainerClosePacket containerClosePacket) {
