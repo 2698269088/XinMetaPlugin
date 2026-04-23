@@ -1,4 +1,4 @@
 name: XinMetaPlugin
 main: xin.bbtt.meta.XinMetaPlugin
-version: 1.0.1-RELEASE
+version: 1.0.2-SNAPSHOT
 type: META_PLUGIN
