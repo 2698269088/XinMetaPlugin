@@ -28,34 +28,35 @@ import xin.bbtt.mcbot.config.BotConfigData;
 import xin.bbtt.mcbot.event.EventHandler;
 import xin.bbtt.mcbot.event.Listener;
 import xin.bbtt.mcbot.events.DisconnectEvent;
+import xin.bbtt.meta.listeners.AutoLoginListener;
 
 public class DisconnectListener implements Listener {
     private static final Logger log = LoggerFactory.getLogger(DisconnectListener.class.getSimpleName());
     @EventHandler
     public void onDisconnect(DisconnectEvent event) {
-        if ("§c微软认证失败".equals(Utils.toString(event.getReason()))) {
-            BotConfig config = Bot.INSTANCE.getConfig();
-            BotConfigData configData = config.getConfigData();
+        AutoLoginListener.login = false;
+        if (!"§c微软认证失败".equals(Utils.toString(event.getReason()))) return;
+        BotConfig config = Bot.INSTANCE.getConfig();
+        BotConfigData configData = config.getConfigData();
 
-            boolean shouldStopBot = false;
+        boolean shouldStopBot = false;
 
+        try {
+            configData.setAccount(AccountLoader.refresh());
+        } catch (Exception e) {
+            log.error(LangManager.get("xinmeta.auth.ms.failed"), e);
+            configData.getAccount().setFullSession(null);
+            shouldStopBot = true;
+        } finally {
             try {
-                configData.setAccount(AccountLoader.refresh());
+                config.saveToFile();
             } catch (Exception e) {
-                log.error(LangManager.get("xinmeta.auth.ms.failed"), e);
-                configData.getAccount().setFullSession(null);
-                shouldStopBot = true;
-            } finally {
-                try {
-                    config.saveToFile();
-                } catch (Exception e) {
-                    log.error(LangManager.get("xinmeta.config.save.failed"), e);
-                }
+                log.error(LangManager.get("xinmeta.config.save.failed"), e);
             }
+        }
 
-            if (shouldStopBot) {
-                Bot.INSTANCE.stop();
-            }
+        if (shouldStopBot) {
+            Bot.INSTANCE.stop();
         }
     }
 }

@@ -20,32 +20,25 @@ package xin.bbtt.meta.listeners;
 import org.geysermc.mcprotocollib.network.Session;
 import org.geysermc.mcprotocollib.network.event.session.SessionAdapter;
 import org.geysermc.mcprotocollib.network.packet.Packet;
-import org.geysermc.mcprotocollib.protocol.data.game.entity.player.Hand;
 import org.geysermc.mcprotocollib.protocol.packet.ingame.clientbound.title.ClientboundSetTitleTextPacket;
-import org.geysermc.mcprotocollib.protocol.packet.ingame.serverbound.player.ServerboundSetCarriedItemPacket;
-import org.geysermc.mcprotocollib.protocol.packet.ingame.serverbound.player.ServerboundUseItemPacket;
+import org.geysermc.mcprotocollib.protocol.packet.ingame.serverbound.ServerboundChatCommandPacket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import xin.bbtt.mcbot.Bot;
 import xin.bbtt.mcbot.LangManager;
-import xin.bbtt.mcbot.Server;
 import xin.bbtt.mcbot.events.LoginSuccessEvent;
 import xin.bbtt.mcbot.events.SendLoginCommandEvent;
 import xin.bbtt.mcbot.events.SendRegisterCommandEvent;
-import xin.bbtt.mcbot.events.UseJoinItemEvent;
-
-import java.time.Instant;
 
 public class AutoLoginListener extends SessionAdapter {
-    public static Long last_action_time = System.currentTimeMillis();
     private static final Logger log = LoggerFactory.getLogger(AutoLoginListener.class.getSimpleName());
     public static int join_button_slot = 2;
-    private boolean login = false;
+    public static boolean login = false;
+    public static Long last_login_time = System.currentTimeMillis();
 
     @Override
     public void packetReceived(Session session, Packet packet) {
         if (packet instanceof ClientboundSetTitleTextPacket titlePacket) login(titlePacket);
-        if (this.login) join();
     }
 
     private void login(ClientboundSetTitleTextPacket titlePacket) {
@@ -53,38 +46,28 @@ public class AutoLoginListener extends SessionAdapter {
             LoginSuccessEvent loginSuccessEvent = new LoginSuccessEvent();
             Bot.INSTANCE.getPluginManager().events().callEvent(loginSuccessEvent);
             log.info(LangManager.get("xinmeta.login.successful"));
-            this.login = true;
+            login = true;
+            AutoJoinListener.last_action_time = System.currentTimeMillis();
         }
-        else if (titlePacket.toString().contains("注册")) {
+        if (System.currentTimeMillis() - last_login_time < 2000) return;
+        if (login) return;
+        last_login_time = System.currentTimeMillis();
+        if (titlePacket.toString().contains("注册")) {
             String registerCommand = "reg " + Bot.INSTANCE.getConfig().getConfigData().getAccount().getPassword() + " " + Bot.INSTANCE.getConfig().getConfigData().getAccount().getPassword();
             SendRegisterCommandEvent registerCommandEvent = new SendRegisterCommandEvent(registerCommand);
             Bot.INSTANCE.getPluginManager().events().callEvent(registerCommandEvent);
+            log.info("reg");
             if (!registerCommandEvent.isDefaultActionCancelled())
-                Bot.INSTANCE.sendCommand(registerCommandEvent.getCommand());
+                Bot.INSTANCE.getSession().send(new ServerboundChatCommandPacket(registerCommandEvent.getCommand()));
         }
         else {
             String loginCommand = "l " + Bot.INSTANCE.getConfig().getConfigData().getAccount().getPassword();
             SendLoginCommandEvent loginCommandEvent = new SendLoginCommandEvent(loginCommand);
+            log.info("login");
             if (!loginCommandEvent.isDefaultActionCancelled())
-                Bot.INSTANCE.sendCommand(loginCommandEvent.getCommand());
+                Bot.INSTANCE.getSession().send(new ServerboundChatCommandPacket(loginCommandEvent.getCommand()));
         }
     }
 
-    private void join() {
-        if (last_action_time > System.currentTimeMillis() - 2000) return;
-        if (Bot.INSTANCE.getServer() != Server.Login) return;
-        UseJoinItemEvent useJoinItemEvent = new UseJoinItemEvent();
-        Bot.INSTANCE.getPluginManager().events().callEvent(useJoinItemEvent);
-        last_action_time = System.currentTimeMillis();
-        if (useJoinItemEvent.isDefaultActionCancelled()) return;
-        Bot.INSTANCE.getSession().send(new ServerboundSetCarriedItemPacket(join_button_slot));
-        Bot.INSTANCE.getSession().send(
-                new ServerboundUseItemPacket(
-                        Hand.MAIN_HAND,
-                        (int) Instant.now().toEpochMilli(),
-                        0,
-                        0
-                )
-        );
-    }
+
 }
