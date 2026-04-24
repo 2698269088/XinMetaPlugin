@@ -73,6 +73,8 @@ public class XinMetaPlugin implements MetaPlugin {
     @Override
     public Server getServer(ClientboundLoginPacket loginPacket) {
         if (loginPacket.getCommonPlayerSpawnInfo().getGameMode() == GameMode.ADVENTURE) {
+            AutoLoginListener.last_login_time = System.currentTimeMillis();
+            AutoJoinListener.last_action_time = System.currentTimeMillis();
             return Server.Login;
         }
         return Server.Game;

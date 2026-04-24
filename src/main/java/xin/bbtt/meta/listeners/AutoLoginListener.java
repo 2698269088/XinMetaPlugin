@@ -34,6 +34,7 @@ public class AutoLoginListener extends SessionAdapter {
     private static final Logger log = LoggerFactory.getLogger(AutoLoginListener.class.getSimpleName());
     public static int join_button_slot = 2;
     public static boolean login = false;
+    public static Long last_login_time = System.currentTimeMillis();
 
     @Override
     public void packetReceived(Session session, Packet packet) {
@@ -46,17 +47,23 @@ public class AutoLoginListener extends SessionAdapter {
             Bot.INSTANCE.getPluginManager().events().callEvent(loginSuccessEvent);
             log.info(LangManager.get("xinmeta.login.successful"));
             login = true;
+            AutoJoinListener.last_action_time = System.currentTimeMillis();
         }
-        else if (titlePacket.toString().contains("注册")) {
+        if (System.currentTimeMillis() - last_login_time < 2000) return;
+        if (login) return;
+        last_login_time = System.currentTimeMillis();
+        if (titlePacket.toString().contains("注册")) {
             String registerCommand = "reg " + Bot.INSTANCE.getConfig().getConfigData().getAccount().getPassword() + " " + Bot.INSTANCE.getConfig().getConfigData().getAccount().getPassword();
             SendRegisterCommandEvent registerCommandEvent = new SendRegisterCommandEvent(registerCommand);
             Bot.INSTANCE.getPluginManager().events().callEvent(registerCommandEvent);
+            log.info("reg");
             if (!registerCommandEvent.isDefaultActionCancelled())
                 Bot.INSTANCE.getSession().send(new ServerboundChatCommandPacket(registerCommandEvent.getCommand()));
         }
         else {
             String loginCommand = "l " + Bot.INSTANCE.getConfig().getConfigData().getAccount().getPassword();
             SendLoginCommandEvent loginCommandEvent = new SendLoginCommandEvent(loginCommand);
+            log.info("login");
             if (!loginCommandEvent.isDefaultActionCancelled())
                 Bot.INSTANCE.getSession().send(new ServerboundChatCommandPacket(loginCommandEvent.getCommand()));
         }
