@@ -3,3 +3,4 @@ xinmeta.disconnect.loginFailed=登入失敗
 xinmeta.login.successful=登入成功
 xinmeta.auth.ms.failed=Microsoft authentication failed.
 xinmeta.autojoin.container.recorded=已記錄容器 ID %s
+xinmeta.autojoin.waiting.delay=等待加入遊戲，還需 %d 秒

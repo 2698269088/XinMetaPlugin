@@ -48,6 +48,8 @@ public class AutoLoginListener extends SessionAdapter {
             log.info(LangManager.get("xinmeta.login.successful"));
             login = true;
             AutoJoinListener.last_action_time = System.currentTimeMillis();
+            // 记录登录成功时间，用于10秒延迟检查
+            AutoJoinListener.login_success_time = System.currentTimeMillis();
         }
         if (System.currentTimeMillis() - last_login_time < 2000) return;
         if (login) return;

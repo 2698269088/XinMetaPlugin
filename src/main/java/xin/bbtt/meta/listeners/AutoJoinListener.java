@@ -53,10 +53,19 @@ public class AutoJoinListener extends SessionAdapter {
     private static final Logger log = LoggerFactory.getLogger(AutoJoinListener.class.getSimpleName());
     private int containerId = -1;
     public static Long last_action_time = System.currentTimeMillis();
+    public static Long login_success_time = null;
 
     private void join() {
         if (last_action_time > System.currentTimeMillis() - 2000) return;
         if (Bot.INSTANCE.getServer() != Server.Login) return;
+        
+        // 检查是否已经过了10秒延迟
+        if (login_success_time != null && System.currentTimeMillis() - login_success_time < 10000) {
+            log.debug(LangManager.get("xinmeta.autojoin.waiting.delay", 
+                (10000 - (System.currentTimeMillis() - login_success_time)) / 1000));
+            return;
+        }
+        
         UseJoinItemEvent useJoinItemEvent = new UseJoinItemEvent();
         Bot.INSTANCE.getPluginManager().events().callEvent(useJoinItemEvent);
         last_action_time = System.currentTimeMillis();

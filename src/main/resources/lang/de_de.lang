@@ -3,3 +3,4 @@ xinmeta.disconnect.loginFailed=Anmeldung fehlgeschlagen
 xinmeta.login.successful=Anmeldung erfolgreich
 xinmeta.auth.ms.failed=Microsoft authentication failed.
 xinmeta.autojoin.container.recorded=Aufgezeichnete Container-ID %s
+xinmeta.autojoin.waiting.delay=Warten auf Spielbeitritt, noch %d Sekunden

@@ -3,3 +3,4 @@ xinmeta.disconnect.loginFailed=ログインに失敗しました
 xinmeta.login.successful=ログインに成功しました
 xinmeta.auth.ms.failed=Microsoft authentication failed.
 xinmeta.autojoin.container.recorded=コンテナ ID %s を記録しました
+xinmeta.autojoin.waiting.delay=ゲーム参加待機中、残り %d 秒
